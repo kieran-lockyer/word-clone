@@ -230,3 +230,64 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+/*
+  Keyboard
+*/
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.keyboard-key {
+  width: calc(10% - 2px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  line-height: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-100);
+}
+
+.keyboard-key.correct {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+.keyboard-key.incorrect {
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  color: white;
+}
+.keyboard-key.misplaced {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
+  color: white;
+}
+
+.new-game-button {
+  margin-top: 1rem;
+  padding: 8px 16px;
+
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-gray-100);
+
+  background-color: var(--color-gray-900);
+  border-radius: 4px;
+
+  cursor: pointer;
+}
