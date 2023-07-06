@@ -22,6 +22,7 @@ function GuessInput({ addGuess, isGameOver }) {
         onChange={handleChange}
         pattern='[A-Z]{5}'
         title='Please enter a 5-letter word, using only letters A-Z.'
+        maxLength={5}
         disabled={isGameOver}
         required
       />
