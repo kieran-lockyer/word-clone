@@ -1,11 +1,8 @@
 import React from 'react'
 import { KEYBOARD } from '../../constants'
-import { checkGuess } from '../../game-helpers'
 
-function Keyboard({ guesses, answer }) {
-  const outcomes = guesses.map((guess) => checkGuess(guess, answer))
-
-  const styleMap = outcomes.reduce((acc, letterStatuses) => {
+function Keyboard({ guesses }) {
+  const styleMap = guesses.reduce((acc, letterStatuses) => {
     letterStatuses.forEach((letterStatus) => {
       if (!letterStatus) return
       const { letter, status } = letterStatus

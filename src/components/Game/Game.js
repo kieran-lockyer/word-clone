@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { range, sample } from '../../utils'
+import { checkGuess } from '../../game-helpers'
 import { WORDS } from '../../data'
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants'
 
@@ -12,23 +13,26 @@ import Keyboard from '../Keyboard/Keyboard'
 function Game() {
   const [answer, setAnswer] = useState(sample(WORDS))
   const [guesses, setGuesses] = useState(
-    range(NUM_OF_GUESSES_ALLOWED).map(() => '')
+    range(NUM_OF_GUESSES_ALLOWED).map(() =>
+      range(5).map(() => ({ letter: '', status: '' }))
+    )
   )
   const [turn, setTurn] = useState(0)
 
-  const hasWon = guesses.includes(answer)
-  const isGameOver = hasWon || turn === NUM_OF_GUESSES_ALLOWED
-
   const addGuess = (guess) => {
     const newGuesses = [...guesses]
-    newGuesses[turn] = guess
+    newGuesses[turn] = checkGuess(guess, answer)
     setGuesses(newGuesses)
     setTurn(turn + 1)
   }
 
   const newGame = () => {
     setAnswer(sample(WORDS))
-    setGuesses(range(NUM_OF_GUESSES_ALLOWED).map(() => ''))
+    setGuesses(
+      range(NUM_OF_GUESSES_ALLOWED).map(() =>
+        range(5).map(() => ({ letter: '', status: '' }))
+      )
+    )
     setTurn(0)
   }
 
@@ -55,11 +59,16 @@ function Game() {
     </>
   )
 
+  const hasWon = guesses.some((guess) =>
+    guess.every((l) => l.status === 'correct')
+  )
+  const isGameOver = hasWon || turn === NUM_OF_GUESSES_ALLOWED
+
   return (
     <>
-      <GuessResults guesses={guesses} answer={answer} />
+      <GuessResults guesses={guesses} />
       <GuessInput addGuess={addGuess} isGameOver={isGameOver} />
-      <Keyboard guesses={guesses} answer={answer} />
+      <Keyboard guesses={guesses} />
       <Banner show={isGameOver} type={hasWon ? 'happy' : 'sad'}>
         {hasWon ? successMessage : failMessage}
       </Banner>
